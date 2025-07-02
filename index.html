@@ -126,6 +126,7 @@
             data?.candidates?.[0]?.content?.parts?.[0]?.text ||
             "Nenhum dado detectado.";
           let json;
+          console.log("Resposta do Gemini:", data);
           try {
             json = JSON.parse(resposta);
             resultado.textContent = `📦 Produto detectado:\n\nNome: ${json.nome}\nMarca/Fabricante: ${json.marca}\nValidade: ${json.validade}`;
