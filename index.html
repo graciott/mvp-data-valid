@@ -44,6 +44,8 @@
     <div id="resultado"></div>
 
     <script src="config.js"></script>
+    <script src="/src/products.js"></script>
+
     <script>
       const video = document.getElementById("video");
       const canvas = document.getElementById("canvas");
@@ -107,8 +109,10 @@
                     parts: [
                       {
                         text:
-                          "Leia a imagem e me de uma lista de todos os produtos que vc encontrar com os seguintes dados do produto:" +
-                          " Nome, Marca/Fabricante e Data de Validade. Responda em JSON com as chaves: nome, tipo, marca, validade.",
+                          "Leia a imagem e me de uma lista de todos os produtos que você encontrar, considerando apenas estes produtos:\n" +
+                          produtos +
+                          "\n\nPara cada produto, retorne um item com o seguinte modelo:" +
+                          "Nome: [nome], Marca/Fabricante: [marca] Data de Validade: [Validade].\n",
                       },
                       {
                         inlineData: {
