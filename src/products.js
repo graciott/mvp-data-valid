@@ -35,4 +35,6 @@ Shampoo
 Fanta
 Suco Del Valle
 Sal Cisne
+chocolate
+Suco Naturale
 `;
