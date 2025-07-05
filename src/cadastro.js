@@ -9,7 +9,7 @@ export function setupCadastro(salvarProdutoFirestore) {
     resultado.style.display = "none";
     btnCadastrar.style.display = "none";
     // Carrega o HTML do formulário
-    const resp = await fetch("../cadastro.html");
+    const resp = await fetch("./cadastro.html");
     cadastroContainer.innerHTML = await resp.text();
 
     // Adiciona eventos ao formulário carregado
