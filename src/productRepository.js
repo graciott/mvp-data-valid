@@ -67,6 +67,22 @@ Faça isso para cada produto identificado. Ignore produtos que não estejam na l
 `;
   }
 
+  /**
+   * Salva uma lista de produtos no Firestore.
+   * @param {Array<Object>} produtos - Lista de produtos a serem salvos.
+   * @returns {Promise<void>}
+   */
+  async salvarLista(produtos) {
+    const promises = produtos.map((produto) => this.salvarProduto(produto));
+    await Promise.all(promises);
+    console.log("Lista de produtos salva no Firestore.");
+  }
+
+  /**
+   * Salva um produto no Firestore.
+   * @param {Object} produto - O produto a ser salvo.
+   * @returns {Promise<void>}
+   */
   async salvarProduto(produto) {
     try {
       await addDoc(collection(this.db, "produtos"), produto);
