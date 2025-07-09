@@ -1,9 +1,8 @@
-import Product from "@/domain/entities/Product";
+import Product from "../../domain/entities/Product";
 import { ProductRepository } from "../../domain/repositories/ProductRepository";
 import ProductsDataSourceImpl, {
   ProductsDataSource,
 } from "../datasources/ProductsDataSourceImpl";
-import { ProductModel } from "../models/ProductModel";
 
 export class ProductRepositoryImpl implements ProductRepository {
   private productDataSource: ProductsDataSource;

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "./ImageUpload.css";
+import { UploadProductImagesUseCase } from "../../domain/usecases/UploadProductImagesUseCase";
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+
+  const uploadProductImagesUseCase = new UploadProductImagesUseCase();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -15,8 +18,14 @@ const ImageUpload: React.FC = () => {
   };
 
   const handleUpload = async () => {
-    // Implement the upload logic here
-    // This will involve sending images to the Gemini API and then to Firebase
+    uploadProductImagesUseCase.execute(images)
+      .then((products) => {
+        console.log("Produtos validados com sucesso:", products);
+        // Aqui você pode adicionar lógica para exibir os produtos validados ou fazer outra ação
+      })
+      .catch((error) => {
+        console.error("Erro ao validar imagens:", error);
+      });
   };
 
   return (

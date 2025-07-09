@@ -1,7 +1,7 @@
 import Product from "../entities/Product";
 import { ProductRepository } from "../repositories/ProductRepository";
 
-export class GetProducts {
+export class GetProductsUseCase {
   private productRepository: ProductRepository;
 
   constructor(productRepository: ProductRepository) {
