@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./ImageUpload.css";
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -8,7 +9,7 @@ const ImageUpload: React.FC = () => {
     if (event.target.files) {
       const filesArray = Array.from(event.target.files);
       setImages(filesArray);
-      const previewsArray = filesArray.map(file => URL.createObjectURL(file));
+      const previewsArray = filesArray.map((file) => URL.createObjectURL(file));
       setPreviews(previewsArray);
     }
   };
@@ -26,12 +27,19 @@ const ImageUpload: React.FC = () => {
         accept="image/*"
         onChange={handleImageChange}
       />
-      <div className="image-preview">
+      <div className="image-preview-grid">
         {previews.map((preview, index) => (
-          <img key={index} src={preview} alt={`Preview ${index}`} />
+          <img
+            key={index}
+            src={preview}
+            alt={`Preview ${index}`}
+            className="thumb"
+          />
         ))}
       </div>
-      <button onClick={handleUpload}>Upload Images</button>
+      <button className="upload-button" onClick={handleUpload}>
+        Validar Imagens
+      </button>
     </div>
   );
 };
