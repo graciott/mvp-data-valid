@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "./ImageUpload.css";
 import { UploadProductImagesUseCase } from "../../domain/usecases/UploadProductImagesUseCase";
+import Product from "../../domain/entities/Product";
 
-const ImageUpload: React.FC = () => {
+interface ImageUploadProps {
+  setProducts: Dispatch<SetStateAction<string>>;
+}
+
+const ImageUpload: React.FC<ImageUploadProps> = ({ setProducts }) => {
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const uploadProductImagesUseCase = new UploadProductImagesUseCase();
 
@@ -18,13 +24,24 @@ const ImageUpload: React.FC = () => {
   };
 
   const handleUpload = async () => {
-    uploadProductImagesUseCase.execute(images)
+    if (images.length === 0) {
+      console.error("Nenhuma imagem selecionada.");
+      setProducts("Nenhuma imagem selecionada");
+      return;
+    }
+    setLoading(true);
+    setProducts("");
+    uploadProductImagesUseCase
+      .execute(images)
       .then((products) => {
         console.log("Produtos validados com sucesso:", products);
-        // Aqui você pode adicionar lógica para exibir os produtos validados ou fazer outra ação
+        setProducts(products);
       })
       .catch((error) => {
         console.error("Erro ao validar imagens:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -46,9 +63,16 @@ const ImageUpload: React.FC = () => {
           />
         ))}
       </div>
-      <button className="upload-button" onClick={handleUpload}>
-        Validar Imagens
+      <button
+        className="upload-button"
+        onClick={handleUpload}
+        disabled={loading}
+      >
+        {loading ? "Validando..." : "Validar Imagens"}
       </button>
+      {loading && (
+        <div className="loading-indicator">Processando imagens...</div>
+      )}
     </div>
   );
 };

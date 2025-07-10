@@ -1,14 +1,15 @@
+import { useState } from "react";
 import ImageUpload from "../components/ImageUpload";
 import ProductList from "../components/ProductList";
-import { useProductViewModel } from "../viewmodels/useProductViewModel";
+import Product from "../../domain/entities/Product";
 
 const Home = () => {
-  const { products } = useProductViewModel();
+  const [products, setProducts] = useState('');
 
   return (
     <div className="home-container">
       <h1>Market Expiry Checker</h1>
-      <ImageUpload />
+      <ImageUpload setProducts={setProducts} />
       <ProductList products={products} />
     </div>
   );
